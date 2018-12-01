@@ -13,12 +13,15 @@ use enemy::{initialise_enemy,Enemy};
 use towers::{initialise_tower,Tower};
 use custom_game_data::CustomGameData;
 use bullet::Bullet;
+use tracker::GameTracker;
 
 pub struct TowerDefense;
 
 impl<'a, 'b> State<CustomGameData<'a,'b>,StateEvent> for TowerDefense {
     fn on_start(&mut self, data: StateData<CustomGameData>) {
         let mut world = data.world;
+        
+        world.add_resource(GameTracker::default());
 
         initialise_camera(&mut world);
         let sheet_handle = decompile_as_sprites(&mut world, "towers.png", (128.0,128.0), (64.0,64.0), 0);
