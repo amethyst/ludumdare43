@@ -15,6 +15,9 @@ mod custom_game_data;
 mod game;
 mod utilities;
 mod systems;
+mod towers;
+mod enemy;
+mod bullet;
 
 use game::TowerDefense;
 use custom_game_data::{CustomGameDataBuilder,DispatchData};
@@ -48,7 +51,8 @@ fn main() -> amethyst::Result<()> {
         .with_bundle(TransformBundle::new(), DispatchData::Core)?
         .with_bundle(UiBundle::<String,String>::new(),DispatchData::Core)?
         .with_bundle(RenderBundle::new(pipe, Some(config)).with_sprite_sheet_processor().with_sprite_visibility_sorting(&["transform_system"]), DispatchData::Core)?
-        .with_bundle(input_bundle,DispatchData::Core)?;
+        .with_bundle(input_bundle,DispatchData::Core)?
+        .with_bundle(systems::gameplay::TowerDefenseBundle,DispatchData::Gameplay)?;
 
     Application::build(assets_dir, TowerDefense)?
         .build(game_data)?

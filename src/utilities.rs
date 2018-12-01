@@ -40,11 +40,11 @@ pub fn decompile_as_sprites(world: &mut World,image_path: &str,image_size: (f32,
                 top,
             };
 
-            let sprite = Sprite{
+            let sprite = Sprite {
                 width: sprite_size.0,
                 height: sprite_size.1,
-                offsets: [sprite_size.0 / 2.0, sprite_size.1 / 2.0],
-                //offsets: [0.0, 0.0],
+                //offsets: [sprite_size.0 / 2.0, sprite_size.1 / 2.0],
+                offsets: [0.0, 0.0],
                 tex_coords,
             };
 
