@@ -1,0 +1,8 @@
+[package]
+name = "ludumdare43"
+version = "0.1.0"
+authors = ["ab0v3g4me <udzizz@gmail.com>"]
+
+[dependencies]
+amethyst = "0.9.0"
+rand = "*"

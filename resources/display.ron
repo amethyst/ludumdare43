@@ -1,0 +1,10 @@
+(
+  dimensions: Some((600, 600)),
+  max_dimensions: None,
+  min_dimensions: Some((600,600)),
+  fullscreen: false,
+  multisampling: 0,
+  title: "Tower Defense",
+  visibility: true,
+  vsync: true,
+)
