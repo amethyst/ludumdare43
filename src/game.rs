@@ -11,6 +11,9 @@ use utilities::{
 };
 use custom_game_data::CustomGameData;
 
+pub const GRID_HEIGHT: f32 = 100.0;
+pub const GRID_WIDTH: f32 = 100.0;
+
 pub struct TowerDefense;
 
 impl<'a, 'b> State<CustomGameData<'a,'b>,StateEvent> for TowerDefense {
@@ -18,9 +21,6 @@ impl<'a, 'b> State<CustomGameData<'a,'b>,StateEvent> for TowerDefense {
         let mut world = data.world;
 
         initialise_camera(&mut world);
-        //let sheet_handle = decompile_as_sprites(&mut world, "FoodSprite.png", (16.0,16.0), (8.0,8.0), 1);
-
-       // world.add_resource(Backpack::new(snake_sheet_handle,food_sheet_handle));
     }
     fn handle_event(&mut self, _data: StateData<CustomGameData>, event: StateEvent) ->  Trans<CustomGameData<'a,'b>,StateEvent> {
         Trans::None
