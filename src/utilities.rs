@@ -3,7 +3,6 @@ use amethyst::assets::{AssetStorage,Loader};
 use amethyst::prelude::*;
 use amethyst::core::cgmath::{Vector3, Matrix4};
 use amethyst::core::transform::{GlobalTransform};
-use amethyst::ui::{UiTransform,Anchor,UiImage,UiButton,UiText,get_default_font,FontAsset,LineMode};
 
 fn load_texture_from_image(world: &mut World,image_path: &str,texture_id: u64) {
     let loader = world.read_resource::<Loader>();
