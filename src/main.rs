@@ -21,6 +21,7 @@ mod bullet;
 mod tracker;
 mod backpack;
 mod collider;
+mod grid;
 
 use game::TowerDefense;
 use custom_game_data::{CustomGameDataBuilder,DispatchData};

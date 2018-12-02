@@ -2,20 +2,22 @@ use amethyst::core::bundle::{Result, SystemBundle};
 use amethyst::ecs::prelude::DispatcherBuilder;
 
 pub mod targeting;
-mod bullet_creation;
-mod bullet_movement;
-mod bullet_removal;
 mod collision;
 mod enemy_removal;
 mod score_income;
+mod grid_systems;
+mod bullets_system;
 
 use self::targeting::TargetingSystem;
-use self::bullet_creation::BulletCreationSystem;
-use self::bullet_movement::BulletMovementSystem;
-use self::bullet_removal::BulletRemovalSystem;
+use self::bullets_system::{  
+    bullet_creation::BulletCreationSystem, 
+    bullet_movement::BulletMovementSystem,
+    bullet_removal::BulletRemovalSystem,
+};
 use self::collision::CollisionCheckingSystem;
 use self::enemy_removal::EnemyRemovalSystem;
 use self::score_income::ScoreIncomeSystem;
+use self::grid_systems::tile_hovering::TileHoverSystem;
 
 pub struct TowerDefenseBundle;
 
@@ -28,6 +30,7 @@ impl<'a, 'b> SystemBundle<'a, 'b> for TowerDefenseBundle {
         builder.add(BulletRemovalSystem, "bullet_removal", &["collision_system"]);
         builder.add(ScoreIncomeSystem, "scroll_income", &[]);
         builder.add(EnemyRemovalSystem, "enemy_removal", &["scroll_income"]);
+        builder.add(TileHoverSystem,"tile_hovering", &[]);
         Ok(())
     }
 }

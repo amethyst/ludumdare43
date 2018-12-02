@@ -16,7 +16,7 @@ fn load_texture_from_image(world: &mut World,image_path: &str,texture_id: u64) {
     let mut material_texture_set = world.write_resource::<MaterialTextureSet>();
     material_texture_set.insert(texture_id, texture_handle); 
 }
-pub fn decompile_as_sprites(world: &mut World,image_path: &str,image_size: (f32,f32), sprite_size: (f32,f32),texture_id: u64) -> SpriteSheetHandle {    
+pub fn decompile_as_sprites(world: &mut World,image_path: &str,image_size: (f32,f32), sprite_size: (f32,f32),texture_id: u64,grid:bool) -> SpriteSheetHandle {    
     let sprites_in_x = (image_size.0 / sprite_size.0).trunc();
     let sprites_in_y = (image_size.1 / sprite_size.1).trunc();
 
@@ -39,12 +39,17 @@ pub fn decompile_as_sprites(world: &mut World,image_path: &str,image_size: (f32,
                 bottom,
                 top,
             };
+            
+            let offsets = if grid {
+                [-sprite_size.0 /2.0, -sprite_size.1 / 2.0]
+            } else {
+                [0.0, 0.0]
+            };
 
             let sprite = Sprite {
                 width: sprite_size.0,
                 height: sprite_size.1,
-                //offsets: [sprite_size.0 / 2.0, sprite_size.1 / 2.0],
-                offsets: [0.0, 0.0],
+                offsets: offsets,
                 tex_coords,
             };
 

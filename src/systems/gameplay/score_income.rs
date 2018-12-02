@@ -16,6 +16,5 @@ impl<'s> System<'s> for ScoreIncomeSystem {
     
     fn run(&mut self, (enemies,mut game_tracker) : Self::SystemData) {
         game_tracker.score += (enemies).join().filter(|e| e.health <= 0.0).collect::<Vec<_>>().len() as u32 * 10;
-        println!("{}", game_tracker.score);
     }
 }

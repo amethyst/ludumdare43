@@ -15,23 +15,29 @@ use bullet::Bullet;
 use tracker::GameTracker;
 use backpack::Backpack;
 use collider::CircleCollider;
+use grid::{initialize_grid,Tile};
+
+pub const GAME_HEIGHT: f64 = 600.0;
+pub const GAME_WIDTH: f64 = 600.0;
 
 pub struct TowerDefense;
 
 impl<'a, 'b> State<CustomGameData<'a,'b>,StateEvent> for TowerDefense {
     fn on_start(&mut self, data: StateData<CustomGameData>) {
         let mut world = data.world;
-        let sheet_handle = decompile_as_sprites(&mut world, "towers.png", (128.0,128.0), (64.0,64.0), 0);
-        let bullet_sheet = decompile_as_sprites(&mut world, "bullets.png", (64.0,64.0), (32.0,32.0), 1);
-        
+        let sheet_handle = decompile_as_sprites(&mut world, "towers.png", (128.0,128.0), (64.0,64.0), 0,false);
+        let bullet_sheet = decompile_as_sprites(&mut world, "bullets.png", (64.0,64.0), (32.0,32.0), 1,false);
+        let grid_sheet = decompile_as_sprites(&mut world,"tiles.png", (128.0, 64.0), (Tile::TILE_SIZE as f32, Tile::TILE_SIZE as f32), 2, true);
+
         world.register::<CircleCollider>();
 
         initialise_camera(&mut world);
-        initialise_tower(&mut world, sheet_handle.clone());
-        initialise_enemy(&mut world, sheet_handle.clone());
+        initialize_grid(&mut world, grid_sheet.clone());
+        //initialise_tower(&mut world, sheet_handle.clone());
+        //initialise_enemy(&mut world, sheet_handle.clone());
         
         world.add_resource(GameTracker::default());
-        world.add_resource(Backpack::new(sheet_handle,bullet_sheet));
+        world.add_resource(Backpack::new(sheet_handle,bullet_sheet,grid_sheet));
     }
     fn handle_event(&mut self, _data: StateData<CustomGameData>, event: StateEvent) ->  Trans<CustomGameData<'a,'b>,StateEvent> {
         Trans::None
