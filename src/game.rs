@@ -9,20 +9,37 @@ use utilities::{
     initialise_camera,
     Backpack,
 };
+use enemy::{initialise_enemy,Enemy};
+use towers::{initialise_tower,Tower};
 use custom_game_data::CustomGameData;
+<<<<<<< HEAD
 use grid;
 
 pub const GRID_HEIGHT: f32 = 600.0;
 pub const GRID_WIDTH: f32 = 600.0;
+=======
+use bullet::Bullet;
+use tracker::GameTracker;
+>>>>>>> origin/towers-enemies
 
 pub struct TowerDefense;
 
 impl<'a, 'b> State<CustomGameData<'a,'b>,StateEvent> for TowerDefense {
     fn on_start(&mut self, data: StateData<CustomGameData>) {
         let mut world = data.world;
+<<<<<<< HEAD
         let sprite_sheet_handle = grid::load_sprite_sheet(world);
         initialise_camera(&mut world);
         grid::initialize_grid(&mut world, sprite_sheet_handle.clone());
+=======
+        
+        world.add_resource(GameTracker::default());
+
+        initialise_camera(&mut world);
+        let sheet_handle = decompile_as_sprites(&mut world, "towers.png", (128.0,128.0), (64.0,64.0), 0);
+        initialise_tower(&mut world, sheet_handle.clone());
+        initialise_enemy(&mut world, sheet_handle);
+>>>>>>> origin/towers-enemies
     }
     fn handle_event(&mut self, _data: StateData<CustomGameData>, event: StateEvent) ->  Trans<CustomGameData<'a,'b>,StateEvent> {
         Trans::None
