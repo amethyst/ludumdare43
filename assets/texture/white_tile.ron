@@ -1,0 +1,12 @@
+(
+    spritesheet_width: 60,
+    spritesheet_height: 60,
+    sprites: [
+        (
+            x: 0,
+            y: 0,
+            width: 60,
+            height: 60,
+        )
+    ],
+)

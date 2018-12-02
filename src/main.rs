@@ -4,12 +4,17 @@ extern crate rand;
 use amethyst::{
     LoggerConfig,StdoutLog,
     core::{
-        transform::TransformBundle, 
+        transform::TransformBundle,
+        transform::Transform,
+        cgmath::Vector3,
     },
     prelude::*,
-    renderer::{DisplayConfig,DrawSprite, Pipeline, RenderBundle, Stage,ColorMask,ALPHA},
+    renderer::{DisplayConfig,DrawSprite, Pipeline, RenderBundle, Stage,ColorMask,
+        ALPHA, SpriteSheetHandle, Texture, PngFormat, TextureMetadata, SpriteSheetFormat, SpriteRender,
+        SpriteSheet, MaterialTextureSet},
     input::InputBundle,
     ui::{UiBundle,DrawUi},
+    assets::{AssetStorage, Loader}
 };
 mod custom_game_data;
 mod game;
@@ -19,7 +24,6 @@ mod grid;
 
 use game::TowerDefense;
 use custom_game_data::{CustomGameDataBuilder,DispatchData};
-
 
 
 
@@ -57,3 +61,4 @@ fn main() -> amethyst::Result<()> {
         .run();
     Ok(())
 }
+

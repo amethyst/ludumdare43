@@ -10,17 +10,19 @@ use utilities::{
     Backpack,
 };
 use custom_game_data::CustomGameData;
+use grid;
 
-pub const GRID_HEIGHT: f32 = 100.0;
-pub const GRID_WIDTH: f32 = 100.0;
+pub const GRID_HEIGHT: f32 = 600.0;
+pub const GRID_WIDTH: f32 = 600.0;
 
 pub struct TowerDefense;
 
 impl<'a, 'b> State<CustomGameData<'a,'b>,StateEvent> for TowerDefense {
     fn on_start(&mut self, data: StateData<CustomGameData>) {
         let mut world = data.world;
-
+        let sprite_sheet_handle = grid::load_sprite_sheet(world);
         initialise_camera(&mut world);
+        grid::initialize_grid(&mut world, sprite_sheet_handle.clone());
     }
     fn handle_event(&mut self, _data: StateData<CustomGameData>, event: StateEvent) ->  Trans<CustomGameData<'a,'b>,StateEvent> {
         Trans::None
