@@ -41,8 +41,8 @@ pub fn initialize_grid(world: &mut World, sprite_sheet_handle: SpriteSheetHandle
         let dimn = world.read_resource::<ScreenDimensions>();
         (dimn.width(), dimn.height())
     };
-    for i in 0..game::GRID_HEIGHT as usize {
-      for j in 0..game::GRID_WIDTH as usize {
+    for i in 0..game::GAME_HEIGHT as usize {
+      for j in 0..game::GAME_WIDTH as usize {
         let mut tile_transform = Transform::default();
         let x = i * 60;
         let y = j * 60;
