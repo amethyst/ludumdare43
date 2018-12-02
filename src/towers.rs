@@ -18,24 +18,23 @@ use rand::{
 pub enum Element {
     Fire = 0,
     Ice =  1,
-    Earth = 2,
-    Air = 3,
+    Shadow = 2,
 }
 impl Distribution<Element> for Standard {
     fn sample<R: Rng + ?Sized>(&self, rng: &mut R) -> Element {
-        match rng.gen_range(0, 4) {
+        match rng.gen_range(0, 3) {
             0 => Element::Fire,
             1 => Element::Ice,
-            2 => Element::Earth,
-            3 => Element::Air,
+            2 => Element::Shadow,
             _ => Element::Fire,
         }
     }
 }
 impl Element {
-    pub const DEFAULT_RANGE: f32 = 100.0;
+    pub const DEFAULT_RANGE: f32 = 1500.0;
     pub const DEFAULT_FIRE_RATE: u64 = 1000;
     pub const DEFAULT_BULLET_SPEED: f32 = 100.0;
+    pub const DEFAULT_BULLET_DAMAGE: f32 = 50.0;
 }
 
 pub struct Tower {

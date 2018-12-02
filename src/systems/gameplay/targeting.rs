@@ -24,10 +24,9 @@ impl<'s> System<'s> for TargetingSystem {
         };
 
         for (tower,transform) in (&mut towers,&transforms).join() {
-            if let None = tower.target {
-                continue;
-            }
-
+            //if let None = tower.target {
+            //    continue;
+            //}
             let origin = transform.translation;
             let range = tower.range;
             

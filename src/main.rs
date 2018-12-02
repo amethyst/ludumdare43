@@ -19,6 +19,8 @@ mod towers;
 mod enemy;
 mod bullet;
 mod tracker;
+mod backpack;
+mod collider;
 
 use game::TowerDefense;
 use custom_game_data::{CustomGameDataBuilder,DispatchData};

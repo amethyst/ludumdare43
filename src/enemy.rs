@@ -9,10 +9,22 @@ use amethyst::{
     prelude::*,
     renderer::{SpriteRender, SpriteSheetHandle,ScreenDimensions},
 };
-
+use collider::CircleCollider;
 
 #[derive(Clone,Copy,Debug)]
-pub struct Enemy;
+pub struct Enemy {
+    pub health: f32,
+}
+impl Enemy {
+    pub fn new(enemy_type: EnemyType) -> Self {
+        let health = match enemy_type {
+            EnemyType::Normal => EnemyType::NORMAL_HITPOINT,
+        };
+        Self {
+            health,
+        }
+    }
+}
 
 impl Component for Enemy {
     type Storage = DenseVecStorage<Self>;
@@ -20,12 +32,17 @@ impl Component for Enemy {
 
 impl Default for Enemy {
     fn default() -> Self {
-        Self {}
+        Self {
+            health: EnemyType::NORMAL_HITPOINT,
+        }
     }
 }
 
 pub enum EnemyType {
     Normal,
+}
+impl EnemyType {
+    pub const NORMAL_HITPOINT: f32 = 100.0;
 }
 
 pub fn initialise_enemy(world: &mut World,sheet_handle: SpriteSheetHandle) {
@@ -49,6 +66,7 @@ pub fn initialise_enemy(world: &mut World,sheet_handle: SpriteSheetHandle) {
                 .with(GlobalTransform::default())
                 .with(transform)
                 .with(Enemy::default())
+                .with(CircleCollider::new(8.0))
                 .build();
 }
 

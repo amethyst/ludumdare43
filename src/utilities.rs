@@ -87,25 +87,3 @@ pub fn initialise_camera(world: &mut World) {
         ))
         .build();
 }
-
-
-pub struct Backpack {
-    pub snake_sheet: Option<SpriteSheetHandle>,
-    pub food_sheet: Option<SpriteSheetHandle>,
-}
-impl Backpack {
-    pub fn new(sheet: SpriteSheetHandle,food_sheet: SpriteSheetHandle) -> Self {
-        Backpack {
-            snake_sheet: Some(sheet),
-            food_sheet: Some(food_sheet),
-        }
-    }
-}
-impl Default for Backpack {
-    fn default() -> Self {
-        Backpack {
-            snake_sheet: None,
-            food_sheet: None,
-        }
-    }
-}
