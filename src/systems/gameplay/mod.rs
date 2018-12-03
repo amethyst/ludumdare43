@@ -17,7 +17,8 @@ use self::bullets_system::{
 use self::collision::CollisionCheckingSystem;
 use self::enemy_removal::EnemyRemovalSystem;
 use self::score_income::ScoreIncomeSystem;
-use self::grid_systems::tile_hovering::TileHoverSystem;
+use self::grid_systems::tile_selection::TileSelectionSystem;
+use self::grid_systems::tower_placement::TowerPlacementSystem;
 
 pub struct TowerDefenseBundle;
 
@@ -30,7 +31,8 @@ impl<'a, 'b> SystemBundle<'a, 'b> for TowerDefenseBundle {
         builder.add(BulletRemovalSystem, "bullet_removal", &["collision_system"]);
         builder.add(ScoreIncomeSystem, "scroll_income", &[]);
         builder.add(EnemyRemovalSystem, "enemy_removal", &["scroll_income"]);
-        builder.add(TileHoverSystem,"tile_hovering", &[]);
+        builder.add(TileSelectionSystem::default(),"tile_selection", &[]);
+        builder.add(TowerPlacementSystem::default(),"tower_placement", &[]);
         Ok(())
     }
 }

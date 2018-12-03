@@ -1,7 +1,7 @@
 (
-  dimensions: Some((600, 600)),
+  dimensions: Some((540, 540)),
   max_dimensions: None,
-  min_dimensions: Some((600,600)),
+  min_dimensions: Some((540,540)),
   fullscreen: false,
   multisampling: 0,
   title: "Tower Defense",
