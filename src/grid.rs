@@ -77,14 +77,14 @@ pub fn initialize_grid(world: &mut World, sprite_sheet_handle: SpriteSheetHandle
     let now = Instant::now();
     for (x_id,x) in (start.0..end.0).step_by(Tile::TILE_SIZE).enumerate() {
       for (y_id,y) in (start.1..end.1).step_by(Tile::TILE_SIZE).enumerate() {
-          //if let None = blank_fields.iter().find(|(dx,dy)| (*dx,*dy) == (x_id,y_id)) {
+          if let None = blank_fields.iter().find(|(dx,dy)| (*dx,*dy) == (x_id,y_id)) {
             world
               .create_entity()
               .with(tile_render.clone())
               .with(Tile::default())
               .with(Transform::from(Vector3::new(x as f32,y as f32,0.0)))
               .build();
-          //}
+          }
       }
    }
     println!("Time to generate: {:?}", Instant::now().duration_since(now));
