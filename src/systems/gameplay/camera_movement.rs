@@ -22,7 +22,7 @@ impl<'s> System<'s> for CameraMovementSystem {
     );
     
     fn run(&mut self, (camera, mut transforms,input,time,dims) : Self::SystemData) {
-        if let Some((dx,dy)) = input.mouse_position() {
+        if let Some((x,y)) = input.mouse_position() {
             if let Some((_,trans)) = (&camera,&mut transforms).join().next() {
                 let (width,height) = ( dims.width() as f64,dims.height() as f64);
                 if x <= CAMERA_ACTIVATE &&  y <= CAMERA_ACTIVATE {
