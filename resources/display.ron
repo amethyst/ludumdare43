@@ -2,7 +2,7 @@
   dimensions: Some((540, 540)),
   max_dimensions: None,
   min_dimensions: Some((540,540)),
-  fullscreen: false,
+  fullscreen: true,
   multisampling: 0,
   title: "Tower Defense",
   visibility: true,

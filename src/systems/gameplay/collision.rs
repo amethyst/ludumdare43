@@ -19,12 +19,12 @@ impl<'s> System<'s> for CollisionCheckingSystem {
     
     fn run(&mut self, (bullets,transforms,mut enemies,mut colliders) : Self::SystemData) {
         let mut enemy_collisions = {
-            (&mut enemies,&transforms,&colliders).join().map(|(enemy,transform,collider)| (enemy,transform.translation,collider.clone()) ).collect::<Vec<_>>()
+            (&mut enemies,&transforms,&colliders).join().map(|(enemy,transform,collider)| (enemy,transform.translation(),collider.clone()) ).collect::<Vec<_>>()
         };
 
         for (bullet,transform,collider) in (&bullets,&transforms,&mut colliders).join() {
             let range = collider.1;
-            for (enemy,_,_) in enemy_collisions.iter_mut().filter(|(_,pos,coll)| acquire_distance(transform.translation,*pos) as f32 <= range + coll.1) {
+            for (enemy,_,_) in enemy_collisions.iter_mut().filter(|(_,pos,coll)| acquire_distance(*transform.translation(),**pos) as f32 <= range + coll.1) {
                 enemy.health -= bullet.damage;
                 collider.0 = true;
             }

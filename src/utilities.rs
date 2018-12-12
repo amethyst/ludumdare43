@@ -1,20 +1,18 @@
-use amethyst::renderer::{TextureMetadata,ScreenDimensions,Projection,Camera,PngFormat,Texture,MaterialTextureSet,Sprite,SpriteSheetHandle,TextureCoordinates,SpriteSheet};
+use amethyst::renderer::{TextureMetadata,ScreenDimensions,Projection,Camera,PngFormat,TextureHandle,Texture,Sprite,SpriteSheetHandle,TextureCoordinates,SpriteSheet};
 use amethyst::assets::{AssetStorage,Loader};
 use amethyst::prelude::*;
-use amethyst::core::cgmath::{Vector3, Matrix4};
-use amethyst::core::transform::{GlobalTransform};
+use amethyst::core::nalgebra::{Vector3,Orthographic3};
+use amethyst::core::transform::{Transform,GlobalTransform};
 
-fn load_texture_from_image(world: &mut World,image_path: &str,texture_id: u64) {
+fn load_texture_from_image(world: &mut World,image_path: &str,texture_id: u64) -> TextureHandle {
     let loader = world.read_resource::<Loader>();
     let texture_storage = world.read_resource::<AssetStorage<Texture>>();
-    let texture_handle = loader.load(
+    loader.load(
             image_path,
             PngFormat,
             TextureMetadata::srgb(),
             (),
-            &texture_storage);
-    let mut material_texture_set = world.write_resource::<MaterialTextureSet>();
-    material_texture_set.insert(texture_id, texture_handle); 
+            &texture_storage)
 }
 pub fn decompile_as_sprites(world: &mut World,image_path: &str,image_size: (f32,f32), sprite_size: (f32,f32),texture_id: u64,grid:bool) -> SpriteSheetHandle {    
     let sprites_in_x = (image_size.0 / sprite_size.0).trunc();
@@ -56,13 +54,13 @@ pub fn decompile_as_sprites(world: &mut World,image_path: &str,image_size: (f32,
             sprites.push(sprite);
         }
     }
+    let texture_handle = load_texture_from_image(world, image_path, texture_id);
 
     let sprite_sheet = SpriteSheet{
-        texture_id: texture_id,
+        texture: texture_handle,
         sprites: sprites,
     };
 
-    load_texture_from_image(world, image_path, texture_id);
 
     let sprite_sheet_handle = {
         let loader = world.read_resource::<Loader>();
@@ -79,16 +77,17 @@ pub fn initialise_camera(world: &mut World) {
         (dimn.width(), dimn.height())
     };
 
-    
+    let v = Vector3::new(- width / 2.0,- height / 2.0, 1.0);
+
     world.create_entity()
-        .with(Camera::from(Projection::orthographic(
+        .with(Camera::from(Projection::Orthographic(Orthographic3::new(
             0.0,
             width,
+            0.0,
             height,
             0.0,
-        )))
-        .with(GlobalTransform(
-            Matrix4::from_translation(Vector3::new(0.0, 0.0, 1.0)).into()
-        ))
+            2000.0,
+        ))))
+        .with(Transform::from(v))
         .build();
 }

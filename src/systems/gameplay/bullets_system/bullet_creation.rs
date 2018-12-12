@@ -1,7 +1,7 @@
 use amethyst::shred::System;
 use amethyst::ecs::prelude::{Join,WriteStorage,ReadStorage,ReadExpect,Entities,Resources};
 use amethyst::core::transform::{GlobalTransform,Transform};
-use amethyst::core::cgmath::Vector2;
+use amethyst::core::nalgebra::Vector2;
 use amethyst::core::timing::Stopwatch;
 use amethyst::renderer::SpriteRender;
 use amethyst::core::transform::components::Parent;
@@ -66,7 +66,7 @@ impl<'s> System<'s> for BulletCreationSystem {
                     .filter(|(id,_,_)| Some(*id) == tower.target)
                     .last()
                     {
-                        let angle = (enemy_pos.translation.y - trans.translation.y).atan2(enemy_pos.translation.x - trans.translation.x);
+                        let angle = (enemy_pos.translation().y - trans.translation().y).atan2(enemy_pos.translation().x - trans.translation().x);
                         let x = angle.cos();
                         let y = angle.sin();
                         
@@ -75,8 +75,6 @@ impl<'s> System<'s> for BulletCreationSystem {
                         let sprite = SpriteRender {
                             sprite_sheet: sheet_handle,
                             sprite_number: 0,
-                            flip_horizontal: false,
-                            flip_vertical: false,
                         };
                         entities.build_entity()
                             .with(trans.clone(), &mut transforms)

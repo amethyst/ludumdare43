@@ -3,7 +3,7 @@ use amethyst::ecs::prelude::{
 };
 use amethyst::{
     core::{
-        cgmath::Vector3,
+        nalgebra::Vector3,
         transform::{GlobalTransform, Transform},
     },
     prelude::*,
@@ -82,8 +82,6 @@ pub fn initialise_tower(world: &mut World,sheet_handle: SpriteSheetHandle)  {
     let tower_sprite = SpriteRender {
         sprite_sheet: sheet_handle,
         sprite_number: sprite_id as usize,
-        flip_horizontal: false,
-        flip_vertical: false,
     };
 
     let (width,height) = {

@@ -18,11 +18,11 @@ impl<'s> System<'s> for BulletMovementSystem {
     );
     
     fn run(&mut self, (time,bullets,mut transforms,mut parents) : Self::SystemData) {
-        for (bullet, transform) in (&bullets,&mut transforms).join() {
+        for (bullet, mut transform) in (&bullets,&mut transforms).join() {
             //let parent = parent.parent_entity();
 
-            transform.translation.x += time.delta_seconds() * Element::DEFAULT_BULLET_SPEED * bullet.factor.x;
-            transform.translation.y += time.delta_seconds() * Element::DEFAULT_BULLET_SPEED * bullet.factor.y;
+            transform.translate_x(time.delta_seconds() * Element::DEFAULT_BULLET_SPEED * bullet.factor.x);
+            transform.translate_y(time.delta_seconds() * Element::DEFAULT_BULLET_SPEED * bullet.factor.y);
         }
     }
 }

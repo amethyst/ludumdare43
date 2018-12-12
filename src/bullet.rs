@@ -1,5 +1,5 @@
 use amethyst::ecs::prelude::{DenseVecStorage,Component};
-use amethyst::core::cgmath::Vector2;
+use amethyst::core::nalgebra::Vector2;
 
 use towers::Element;
 

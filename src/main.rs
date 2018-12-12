@@ -7,9 +7,10 @@ use amethyst::{
         transform::TransformBundle, 
     },
     prelude::*,
-    renderer::{DisplayConfig,DrawSprite, Pipeline, RenderBundle, Stage,ColorMask,ALPHA},
+    renderer::{DisplayConfig,DrawFlat2D,Pipeline, RenderBundle, Stage,ColorMask,ALPHA},
     input::InputBundle,
     ui::{UiBundle,DrawUi},
+    utils::fps_counter::{FPSCounter, FPSCounterBundle},
 };
 mod custom_game_data;
 mod game;
@@ -42,7 +43,7 @@ fn main() -> amethyst::Result<()> {
     let pipe = Pipeline::build().with_stage(
         Stage::with_backbuffer()
             .clear_target([0.0, 0.0, 0.0, 1.0], 1.0)
-            .with_pass(DrawSprite::new().with_transparency(
+            .with_pass(DrawFlat2D::new().with_transparency(
                 ColorMask::all(),
                 ALPHA,
                 None,
@@ -50,16 +51,15 @@ fn main() -> amethyst::Result<()> {
             .with_pass(DrawUi::new()),
     );
 
-    let input_bundle = InputBundle::<String, String>::new();
-
     let game_data = CustomGameDataBuilder::default()
         .with_bundle(TransformBundle::new(), DispatchData::Core)?
         .with_bundle(UiBundle::<String,String>::new(),DispatchData::Core)?
         .with_bundle(RenderBundle::new(pipe, Some(config)).with_sprite_sheet_processor().with_sprite_visibility_sorting(&["transform_system"]), DispatchData::Core)?
-        .with_bundle(input_bundle,DispatchData::Core)?
+        .with_bundle(InputBundle::<String, String>::new(),DispatchData::Core)?
+        .with_bundle(FPSCounterBundle::default(), DispatchData::Gameplay)?
         .with_bundle(systems::gameplay::TowerDefenseBundle,DispatchData::Gameplay)?;
 
-    Application::build(assets_dir, TowerDefense)?
+    Application::build(assets_dir, TowerDefense {fps_display: None})?
         .build(game_data)?
         .run();
     Ok(())

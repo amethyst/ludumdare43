@@ -3,7 +3,7 @@ use amethyst::ecs::prelude::{Join,WriteStorage,ReadStorage,Entities,Read,ReadExp
 use amethyst::core::transform::Transform;
 use amethyst::input::InputHandler;
 use amethyst::renderer::{SpriteRender,ScreenDimensions,MouseButton};
-use amethyst::core::cgmath::Vector2;
+use amethyst::core::nalgebra::Vector2;
 
 use grid::{Tile,Selected};
 use tracker::GameTracker;

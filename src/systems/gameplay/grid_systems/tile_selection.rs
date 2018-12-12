@@ -27,8 +27,8 @@ impl<'s> System<'s> for TileSelectionSystem {
         if input.mouse_button_is_down(MouseButton::Left) {
             if let Some((x,y)) = input.mouse_position(){
                 let mut element = (&*entities,&mut tiles,&transforms).join().find(|(_,_,trans)| 
-                    x as f32 >= trans.translation.x  && x as f32 <= trans.translation.x + Tile::TILE_SIZE as f32 && 
-                    dimensions.height() - y as f32 >= trans.translation.y && dimensions.height() - y as f32 <= trans.translation.y + Tile::TILE_SIZE as f32  );
+                    x as f32 >= trans.translation().x  && x as f32 <= trans.translation().x + Tile::TILE_SIZE as f32 && 
+                    dimensions.height() - y as f32 >= trans.translation().y && dimensions.height() - y as f32 <= trans.translation().y + Tile::TILE_SIZE as f32  );
                 // Means mouse is colliding with an element.
                 if let Some((e,_,_)) = element {
                     if let Some(id) = self.selected {
@@ -44,7 +44,7 @@ impl<'s> System<'s> for TileSelectionSystem {
                     }
                     let sprite = sprites.get_mut(e).unwrap();
                     let _ = selected.insert(e,Selected);
-                    sprite.sprite_number = 2;
+                   // sprite.sprite_number = 2;
                     self.selected = Some(e.id());   
                     
                 }

@@ -3,7 +3,7 @@ use amethyst::ecs::prelude::{
 };
 use amethyst::{
     core::{
-        cgmath::Vector3,
+        nalgebra::Vector3,
         transform::{GlobalTransform, Transform},
     },
     prelude::*,
@@ -49,8 +49,6 @@ pub fn initialise_enemy(world: &mut World,sheet_handle: SpriteSheetHandle) {
     let enemy_sprite = SpriteRender {
         sprite_sheet: sheet_handle,
         sprite_number: 0,
-        flip_horizontal: false,
-        flip_vertical: false,
     };
 
     let (width,height) = {
@@ -59,8 +57,8 @@ pub fn initialise_enemy(world: &mut World,sheet_handle: SpriteSheetHandle) {
     };
     
     let mut transform = Transform::from(Vector3::new(100.0,64.0,0.0));
-    transform.scale = Vector3::new(0.3,0.3,0.0);
-
+    transform.set_scale(0.3,0.3,0.0);
+    
     world.create_entity()
                 .with(enemy_sprite)
                 .with(GlobalTransform::default())
